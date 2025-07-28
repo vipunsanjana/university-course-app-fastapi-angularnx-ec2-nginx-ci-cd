@@ -1,0 +1,33 @@
+# Standard exclusions
+**/node_modules
+**/dist
+**/tmp
+.git
+.gitignore
+.dockerignore
+README.md
+*.log
+.idea
+.vscode
+.env
+nx.json
+tsconfig.base.json
+coverage
+Dockerfile
+*.md
+
+# Angular-specific exclusions
+.angular
+.nx
+e2e
+environments
+public
+src
+
+# Build system files
+*.spec.*
+*.tsbuildinfo
+jest.config.*
+eslint.config.*
+.prettier*
+project.json
