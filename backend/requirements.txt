@@ -5,3 +5,4 @@ python-dotenv
 httpx
 pandas
 oauth2client
+gspread
