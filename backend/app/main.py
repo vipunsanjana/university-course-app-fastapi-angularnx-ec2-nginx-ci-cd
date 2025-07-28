@@ -19,10 +19,10 @@ def create_app() -> FastAPI:
     app.add_middleware(
         CORSMiddleware,
         allow_origins=[
-            "http://localhost:4200",  # Angular dev server
-            "http://localhost",       # NGINX
-            "http://localhost:8000/api",
-            "http://54.209.124.61/" 
+        "http://localhost", 
+        "http://localhost:80", 
+        "http://localhost:8001", 
+        "http://54.209.124.61/"
         ],
         allow_credentials=True,
         allow_methods=["*"],
