@@ -10,7 +10,7 @@ RUN npm install
 # Copy the rest of the source code
 COPY . .
 
-# Build the Angular app using NX (replace `my-angular-app` with actual name)
+# Build the Angular app using NX (replace `org` with actual name)
 RUN npx nx build org --configuration production
 
 # Stage 2: Serve Angular via NGINX
