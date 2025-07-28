@@ -1,33 +1,14 @@
-# Stage 1: Build the Angular app using Node
+# Stage 1: Build Angular app
 FROM node:18-alpine AS builder
-
-# Create app directory
 WORKDIR /app
-
-# Install dependencies
 COPY package.json package-lock.json* ./
 RUN npm install
-
-# Copy the entire workspace
 COPY . .
+RUN npx nx build your-angular-app --configuration production
 
-# Build the specific Angular app (replace `source` with your app name if different)
-RUN npx nx build source --configuration=production
-
-# Stage 2: Serve using NGINX
+# Stage 2: Serve Angular via NGINX
 FROM nginx:alpine
-
-# Remove default nginx index page
-RUN rm -rf /usr/share/nginx/html/*
-
-# Copy built Angular app from builder
-COPY --from=builder /app/dist/apps/source /usr/share/nginx/html
-
-# Copy custom nginx config (optional)
-# COPY nginx.conf /etc/nginx/nginx.conf
-
-# Expose port
+COPY --from=builder /app/dist/apps/your-angular-app /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
-
-# Start NGINX
 CMD ["nginx", "-g", "daemon off;"]
