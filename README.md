@@ -75,7 +75,7 @@ Both backend and frontend are containerized using Docker and orchestrated with N
 
 ---
 
-## 🧑‍💻 Developer
+## 🧑‍💻 Developer and Deployement
 
 **Vipun Sajana**  
 Former Intern Software Engineer  
