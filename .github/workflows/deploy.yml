@@ -110,7 +110,7 @@ jobs:
         run: |
           docker stop org || true
           docker rm org || true
-          docker run -d --network mern-net -p 4200:80 --name org $DOCKERHUB_USERNAME/org:latest
+          docker run -d --network mern-net --name org $DOCKERHUB_USERNAME/org:latest
 
       - name: Run backend containers (2 replicas) with env file
         run: |
