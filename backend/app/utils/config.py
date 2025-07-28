@@ -74,5 +74,5 @@ service_account_info = {
 
 cred = Credentials.from_service_account_info(service_account_info, scopes=SCOPES)
 
-GOOGLE_SHEET_URL = os.getenv("GOOGLE_SHEET_URL").replace("\\n", "\n")
-SHEET_ID = os.getenv("SHEET_ID")
+GOOGLE_SHEET_URL = "https://docs.google.com/spreadsheets/d/1kcXWeXgPmnQaRsKrYSl4NXOBJby5bg12-1t3Om5xWG8/edit?gid=120320431#gid=120320431"
+SHEET_ID = "1kcXWeXgPmnQaRsKrYSl4NXOBJby5bg12-1t3Om5xWG8"
