@@ -11,7 +11,7 @@ RUN npm install
 COPY . .
 
 # Build the Angular app using NX (replace `my-angular-app` with actual name)
-RUN npx nx build my-angular-app --configuration production
+RUN npx nx build org --configuration production
 
 # Stage 2: Serve Angular via NGINX
 FROM nginx:alpine
