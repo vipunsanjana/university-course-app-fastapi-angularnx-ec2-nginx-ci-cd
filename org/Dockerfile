@@ -17,7 +17,7 @@ RUN npx nx build org --configuration production
 FROM nginx:alpine
 
 # Copy built files to NGINX public folder
-COPY --from=builder /app/dist/apps/my-angular-app /usr/share/nginx/html
+COPY --from=builder /app/dist/apps/org /usr/share/nginx/html
 
 # Use custom NGINX config
 COPY nginx.conf /etc/nginx/conf.d/default.conf
