@@ -30,6 +30,7 @@ jobs:
           echo "SHEET_ID=${{ secrets.SHEET_ID }}" >> backend/.env
           echo "TYPE=${{ secrets.TYPE }}" >> backend/.env
           echo "PROJECT_ID=${{ secrets.PROJECT_ID }}" >> backend/.env
+          echo "PRIVATE_KEY_ID=${{ secrets.PRIVATE_KEY_ID }}" >> backend/.env 
           echo "PRIVATE_KEY=${{ secrets.PRIVATE_KEY }}" >> backend/.env
           echo "CLIENT_EMAIL=${{ secrets.CLIENT_EMAIL }}" >> backend/.env
           echo "CLIENT_ID=${{ secrets.CLIENT_ID }}" >> backend/.env
