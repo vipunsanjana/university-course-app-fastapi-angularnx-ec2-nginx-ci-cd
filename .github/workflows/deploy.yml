@@ -32,7 +32,6 @@ jobs:
           echo "TYPE=\"${{ secrets.TYPE }}\"" >> backend/.env
           echo "PROJECT_ID=\"${{ secrets.PROJECT_ID }}\"" >> backend/.env
           echo "PRIVATE_KEY_ID=\"${{ secrets.PRIVATE_KEY_ID }}\"" >> backend/.env
-          # Properly escape newlines and quote PRIVATE_KEY
           echo "PRIVATE_KEY=\"$(echo "${{ secrets.PRIVATE_KEY }}" | sed ':a;N;$!ba;s/\n/\\n/g')\"" >> backend/.env
           echo "CLIENT_EMAIL=\"${{ secrets.CLIENT_EMAIL }}\"" >> backend/.env
           echo "CLIENT_ID=\"${{ secrets.CLIENT_ID }}\"" >> backend/.env
@@ -76,6 +75,14 @@ jobs:
           sudo fuser -k 80/tcp || true
           sleep 2
 
+      - name: Create Docker network if not exists
+        run: |
+          if ! docker network ls | grep -q mern-net; then
+            docker network create mern-net
+          else
+            echo "Network mern-net already exists"
+          fi
+
       - name: Pull latest backend, org and nginx images
         run: |
           docker pull $DOCKERHUB_USERNAME/backend:latest
@@ -103,20 +110,20 @@ jobs:
         run: |
           docker stop org || true
           docker rm org || true
-          docker run -d -p 4200:80 --name org $DOCKERHUB_USERNAME/org:latest
+          docker run -d --network mern-net -p 4200:80 --name org $DOCKERHUB_USERNAME/org:latest
 
       - name: Run backend containers (2 replicas) with env file
         run: |
           docker stop backend1 || true
           docker rm backend1 || true
-          docker run -d --env-file backend/.env -p 8001:8000 --name backend1 $DOCKERHUB_USERNAME/backend:latest
+          docker run -d --network mern-net --env-file backend/.env -p 8001:8000 --name backend1 $DOCKERHUB_USERNAME/backend:latest
 
           docker stop backend2 || true
           docker rm backend2 || true
-          docker run -d --env-file backend/.env -p 8002:8000 --name backend2 $DOCKERHUB_USERNAME/backend:latest
+          docker run -d --network mern-net --env-file backend/.env -p 8002:8000 --name backend2 $DOCKERHUB_USERNAME/backend:latest
 
       - name: Run nginx container
         run: |
           docker stop nginx || true
           docker rm nginx || true
-          docker run -d -p 80:80 --name nginx $DOCKERHUB_USERNAME/nginx:latest
+          docker run -d --network mern-net -p 80:80 --name nginx $DOCKERHUB_USERNAME/nginx:latest
