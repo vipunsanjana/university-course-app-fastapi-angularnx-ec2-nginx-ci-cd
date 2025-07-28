@@ -27,20 +27,20 @@ jobs:
       - name: Create backend .env file from GitHub Secrets (build)
         run: |
           mkdir -p backend
-          echo "GOOGLE_SHEET_URL=${{ secrets.GOOGLE_SHEET_URL }}" > backend/.env
-          echo "SHEET_ID=${{ secrets.SHEET_ID }}" >> backend/.env
-          echo "TYPE=${{ secrets.TYPE }}" >> backend/.env
-          echo "PROJECT_ID=${{ secrets.PROJECT_ID }}" >> backend/.env
-          echo "PRIVATE_KEY_ID=${{ secrets.PRIVATE_KEY_ID }}" >> backend/.env
-          # Escape newlines in PRIVATE_KEY properly for .env
-          echo "PRIVATE_KEY=$(echo "${{ secrets.PRIVATE_KEY }}" | sed ':a;N;$!ba;s/\n/\\n/g')" >> backend/.env
-          echo "CLIENT_EMAIL=${{ secrets.CLIENT_EMAIL }}" >> backend/.env
-          echo "CLIENT_ID=${{ secrets.CLIENT_ID }}" >> backend/.env
-          echo "AUTH_URI=${{ secrets.AUTH_URI }}" >> backend/.env
-          echo "TOKEN_URI=${{ secrets.TOKEN_URI }}" >> backend/.env
-          echo "AUTH_PROVIDER_X509_CERT_URL=${{ secrets.AUTH_PROVIDER_X509_CERT_URL }}" >> backend/.env
-          echo "CLIENT_X509_CERT_URL=${{ secrets.CLIENT_X509_CERT_URL }}" >> backend/.env
-          echo "UNIVERSE_DOMAIN=${{ secrets.UNIVERSE_DOMAIN }}" >> backend/.env
+          echo "GOOGLE_SHEET_URL=\"${{ secrets.GOOGLE_SHEET_URL }}\"" > backend/.env
+          echo "SHEET_ID=\"${{ secrets.SHEET_ID }}\"" >> backend/.env
+          echo "TYPE=\"${{ secrets.TYPE }}\"" >> backend/.env
+          echo "PROJECT_ID=\"${{ secrets.PROJECT_ID }}\"" >> backend/.env
+          echo "PRIVATE_KEY_ID=\"${{ secrets.PRIVATE_KEY_ID }}\"" >> backend/.env
+          # Properly escape newlines and quote PRIVATE_KEY
+          echo "PRIVATE_KEY=\"$(echo "${{ secrets.PRIVATE_KEY }}" | sed ':a;N;$!ba;s/\n/\\n/g')\"" >> backend/.env
+          echo "CLIENT_EMAIL=\"${{ secrets.CLIENT_EMAIL }}\"" >> backend/.env
+          echo "CLIENT_ID=\"${{ secrets.CLIENT_ID }}\"" >> backend/.env
+          echo "AUTH_URI=\"${{ secrets.AUTH_URI }}\"" >> backend/.env
+          echo "TOKEN_URI=\"${{ secrets.TOKEN_URI }}\"" >> backend/.env
+          echo "AUTH_PROVIDER_X509_CERT_URL=\"${{ secrets.AUTH_PROVIDER_X509_CERT_URL }}\"" >> backend/.env
+          echo "CLIENT_X509_CERT_URL=\"${{ secrets.CLIENT_X509_CERT_URL }}\"" >> backend/.env
+          echo "UNIVERSE_DOMAIN=\"${{ secrets.UNIVERSE_DOMAIN }}\"" >> backend/.env
 
       - name: Build and push backend image
         run: |
@@ -85,19 +85,19 @@ jobs:
       - name: Create backend .env file from GitHub Secrets (deploy)
         run: |
           mkdir -p backend
-          echo "GOOGLE_SHEET_URL=${{ secrets.GOOGLE_SHEET_URL }}" > backend/.env
-          echo "SHEET_ID=${{ secrets.SHEET_ID }}" >> backend/.env
-          echo "TYPE=${{ secrets.TYPE }}" >> backend/.env
-          echo "PROJECT_ID=${{ secrets.PROJECT_ID }}" >> backend/.env
-          echo "PRIVATE_KEY_ID=${{ secrets.PRIVATE_KEY_ID }}" >> backend/.env
-          echo "PRIVATE_KEY=$(echo "${{ secrets.PRIVATE_KEY }}" | sed ':a;N;$!ba;s/\n/\\n/g')" >> backend/.env
-          echo "CLIENT_EMAIL=${{ secrets.CLIENT_EMAIL }}" >> backend/.env
-          echo "CLIENT_ID=${{ secrets.CLIENT_ID }}" >> backend/.env
-          echo "AUTH_URI=${{ secrets.AUTH_URI }}" >> backend/.env
-          echo "TOKEN_URI=${{ secrets.TOKEN_URI }}" >> backend/.env
-          echo "AUTH_PROVIDER_X509_CERT_URL=${{ secrets.AUTH_PROVIDER_X509_CERT_URL }}" >> backend/.env
-          echo "CLIENT_X509_CERT_URL=${{ secrets.CLIENT_X509_CERT_URL }}" >> backend/.env
-          echo "UNIVERSE_DOMAIN=${{ secrets.UNIVERSE_DOMAIN }}" >> backend/.env
+          echo "GOOGLE_SHEET_URL=\"${{ secrets.GOOGLE_SHEET_URL }}\"" > backend/.env
+          echo "SHEET_ID=\"${{ secrets.SHEET_ID }}\"" >> backend/.env
+          echo "TYPE=\"${{ secrets.TYPE }}\"" >> backend/.env
+          echo "PROJECT_ID=\"${{ secrets.PROJECT_ID }}\"" >> backend/.env
+          echo "PRIVATE_KEY_ID=\"${{ secrets.PRIVATE_KEY_ID }}\"" >> backend/.env
+          echo "PRIVATE_KEY=\"$(echo "${{ secrets.PRIVATE_KEY }}" | sed ':a;N;$!ba;s/\n/\\n/g')\"" >> backend/.env
+          echo "CLIENT_EMAIL=\"${{ secrets.CLIENT_EMAIL }}\"" >> backend/.env
+          echo "CLIENT_ID=\"${{ secrets.CLIENT_ID }}\"" >> backend/.env
+          echo "AUTH_URI=\"${{ secrets.AUTH_URI }}\"" >> backend/.env
+          echo "TOKEN_URI=\"${{ secrets.TOKEN_URI }}\"" >> backend/.env
+          echo "AUTH_PROVIDER_X509_CERT_URL=\"${{ secrets.AUTH_PROVIDER_X509_CERT_URL }}\"" >> backend/.env
+          echo "CLIENT_X509_CERT_URL=\"${{ secrets.CLIENT_X509_CERT_URL }}\"" >> backend/.env
+          echo "UNIVERSE_DOMAIN=\"${{ secrets.UNIVERSE_DOMAIN }}\"" >> backend/.env
 
       - name: Run org container
         run: |
