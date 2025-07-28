@@ -7,22 +7,21 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm install
 
-# Copy the rest of the source code
+# Copy source code
 COPY . .
 
-# Build the Angular app using NX (replace `org` with actual name)
+# Build the Angular app using NX
 RUN npx nx build org --configuration production
 
 # Stage 2: Serve Angular via NGINX
 FROM nginx:alpine
 
-# Copy built files to NGINX public folder
-COPY --from=builder /app/dist/apps/org /usr/share/nginx/html
+# Copy built files to NGINX public folder (fixed path here)
+COPY --from=builder /app/dist/org /usr/share/nginx/html
 
 # Use custom NGINX config
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Expose port 80
 EXPOSE 80
 
 CMD ["nginx", "-g", "daemon off;"]
