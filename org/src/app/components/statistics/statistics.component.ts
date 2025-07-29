@@ -10,134 +10,136 @@ Chart.register(...registerables);
   standalone: true,
   imports: [CommonModule],
   template: `
-    <div *ngIf="(recommendations && recommendations.total_count > 0) || (nearbyRecommendations)" class="bg-white rounded-lg shadow-lg p-6">
-      <h2 class="text-2xl font-bold text-gray-800 mb-6">📊 Z-Score Analysis & Statistics</h2>
+    <div *ngIf="(recommendations && recommendations.total_count > 0) || (nearbyRecommendations)" class="bg-white rounded-lg shadow-lg p-4 sm:p-6">
+      <h2 class="text-xl sm:text-2xl font-bold text-gray-800 mb-4 sm:mb-6">📊 Z-Score Analysis & Statistics</h2>
       
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
         <!-- Enhanced Statistics Cards -->
-        <div class="space-y-4">
-          <div class="bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg p-4 transform hover:scale-105 transition-all duration-200">
-            <h3 class="font-semibold text-gray-800 mb-2 flex items-center">
-              <span class="text-2xl mr-2">🎯</span>
+        <div class="space-y-3 sm:space-y-4">
+          <div class="bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg p-3 sm:p-4 transform hover:scale-105 transition-all duration-200">
+            <h3 class="font-semibold text-gray-800 mb-2 flex items-center text-sm sm:text-base">
+              <span class="text-lg sm:text-2xl mr-2">🎯</span>
               Your Performance
             </h3>
-            <div class="text-3xl font-bold text-blue-600">{{ getStudentZScore() }}</div>
-            <p class="text-sm text-gray-600">Your Z-Score</p>
+            <div class="text-2xl sm:text-3xl font-bold text-blue-600">{{ getStudentZScore() }}</div>
+            <p class="text-xs sm:text-sm text-gray-600">Your Z-Score</p>
             <div class="mt-2 bg-blue-200 rounded-full h-2">
               <div class="bg-blue-600 h-2 rounded-full transition-all duration-500" 
                    [style.width.%]="(getStudentZScore() / 3.0) * 100"></div>
             </div>
           </div>
           
-          <div class="bg-gradient-to-r from-green-50 to-green-100 rounded-lg p-4 transform hover:scale-105 transition-all duration-200">
-            <h3 class="font-semibold text-gray-800 mb-2 flex items-center">
-              <span class="text-2xl mr-2">✅</span>
+          <div class="bg-gradient-to-r from-green-50 to-green-100 rounded-lg p-3 sm:p-4 transform hover:scale-105 transition-all duration-200">
+            <h3 class="font-semibold text-gray-800 mb-2 flex items-center text-sm sm:text-base">
+              <span class="text-lg sm:text-2xl mr-2">✅</span>
               Total Eligibility
             </h3>
-            <div class="text-3xl font-bold text-green-600">{{ getTotalEligiblePrograms() }}</div>
-            <p class="text-sm text-gray-600">Programs Available</p>
+            <div class="text-2xl sm:text-3xl font-bold text-green-600">{{ getTotalEligiblePrograms() }}</div>
+            <p class="text-xs sm:text-sm text-gray-600">Programs Available</p>
             <div class="flex items-center mt-2">
-              <span class="text-xs text-green-700 bg-green-200 px-2 py-1 rounded-full">
+              <span class="text-xs sm:text-sm text-green-700 bg-green-200 px-2 py-1 rounded-full">
                 {{ getEligibilityPercentage() }}% of all programs
               </span>
             </div>
           </div>
           
-          <div class="bg-gradient-to-r from-purple-50 to-purple-100 rounded-lg p-4 transform hover:scale-105 transition-all duration-200">
-            <h3 class="font-semibold text-gray-800 mb-2 flex items-center">
-              <span class="text-2xl mr-2">📈</span>
+          <div class="bg-gradient-to-r from-purple-50 to-purple-100 rounded-lg p-3 sm:p-4 transform hover:scale-105 transition-all duration-200">
+            <h3 class="font-semibold text-gray-800 mb-2 flex items-center text-sm sm:text-base">
+              <span class="text-lg sm:text-2xl mr-2">📈</span>
               Competitive Advantage
             </h3>
-            <div class="text-3xl font-bold text-purple-600">+{{ averageAdvantage.toFixed(2) }}</div>
-            <p class="text-sm text-gray-600">Average Above Cutoff</p>
+            <div class="text-2xl sm:text-3xl font-bold text-purple-600">+{{ averageAdvantage.toFixed(2) }}</div>
+            <p class="text-xs sm:text-sm text-gray-600">Average Above Cutoff</p>
             <div class="mt-2">
-              <div class="text-xs text-purple-700">
+              <div class="text-xs sm:text-sm text-purple-700">
                 Range: +{{ minAdvantage.toFixed(2) }} to +{{ maxAdvantage.toFixed(2) }}
               </div>
             </div>
           </div>
           
-          <div class="bg-gradient-to-r from-amber-50 to-amber-100 rounded-lg p-4 transform hover:scale-105 transition-all duration-200">
-            <h3 class="font-semibold text-gray-800 mb-2 flex items-center">
-              <span class="text-2xl mr-2">🏆</span>
+          <div class="bg-gradient-to-r from-amber-50 to-amber-100 rounded-lg p-3 sm:p-4 transform hover:scale-105 transition-all duration-200">
+            <h3 class="font-semibold text-gray-800 mb-2 flex items-center text-sm sm:text-base">
+              <span class="text-lg sm:text-2xl mr-2">🏆</span>
               Best Match
             </h3>
-            <div class="text-lg font-bold text-amber-600">{{ bestMatch?.degree_name || 'N/A' }}</div>
-            <p class="text-sm text-gray-600">Highest Safety Margin</p>
-            <div *ngIf="bestMatch" class="text-xs text-amber-700 mt-1">
+            <div class="text-base sm:text-lg font-bold text-amber-600 leading-tight">{{ bestMatch?.degree_name || 'N/A' }}</div>
+            <p class="text-xs sm:text-sm text-gray-600">Highest Safety Margin</p>
+            <div *ngIf="bestMatch" class="text-xs sm:text-sm text-amber-700 mt-1">
               +{{ (getStudentZScore() - bestMatch.cutoff_z_score).toFixed(2) }} above cutoff
             </div>
           </div>
 
           <!-- Nearby Districts Summary (if available) -->
-          <div *ngIf="nearbyRecommendations" class="bg-gradient-to-r from-indigo-50 to-indigo-100 rounded-lg p-4 transform hover:scale-105 transition-all duration-200">
-            <h3 class="font-semibold text-gray-800 mb-2 flex items-center">
-              <span class="text-2xl mr-2">🗺️</span>
+          <div *ngIf="nearbyRecommendations" class="bg-gradient-to-r from-indigo-50 to-indigo-100 rounded-lg p-3 sm:p-4 transform hover:scale-105 transition-all duration-200">
+            <h3 class="font-semibold text-gray-800 mb-2 flex items-center text-sm sm:text-base">
+              <span class="text-lg sm:text-2xl mr-2">🗺️</span>
               Geographic Reach
             </h3>
-            <div class="text-3xl font-bold text-indigo-600">{{ nearbyRecommendations.nearby_districts.districts.length + 1 }}</div>
-            <p class="text-sm text-gray-600">Districts Covered</p>
-            <div class="text-xs text-indigo-700 mt-1">
+            <div class="text-2xl sm:text-3xl font-bold text-indigo-600">{{ nearbyRecommendations.nearby_districts.districts.length + 1 }}</div>
+            <p class="text-xs sm:text-sm text-gray-600">Districts Covered</p>
+            <div class="text-xs sm:text-sm text-indigo-700 mt-1">
               {{ nearbyRecommendations.primary_district.district }} + {{ nearbyRecommendations.nearby_districts.districts.length }} nearby
             </div>
           </div>
         </div>
         
-       <!-- UX-Enhanced Chart Section -->
-      <div class="bg-gray-50 rounded-lg p-4 overflow-x-auto">
-        <h3 class="font-semibold text-gray-800 mb-4 flex items-center">
-          <span class="text-xl mr-2">📊</span>
-          Z-Score Comparison Chart
-        </h3>
+        <!-- UX-Enhanced Chart Section -->
+        <div class="bg-gray-50 rounded-lg p-3 sm:p-4 overflow-hidden">
+          <h3 class="font-semibold text-gray-800 mb-3 sm:mb-4 flex items-center text-sm sm:text-base">
+            <span class="text-lg sm:text-xl mr-2">📊</span>
+            Z-Score Comparison Chart
+          </h3>
 
-        <!-- Scrollable container with fixed chart size -->
-        <div class="min-w-[600px] max-w-full" style="overflow-x: auto;">
-          <canvas #chartCanvas class="w-[1000px] h-[320px]"></canvas>
-        </div>
+          <!-- Mobile-optimized chart container -->
+          <div class="w-full overflow-x-auto">
+            <div class="min-w-[320px] sm:min-w-[600px] w-full">
+              <canvas #chartCanvas class="w-full h-[250px] sm:h-[320px]"></canvas>
+            </div>
+          </div>
 
-        <!-- Legend -->
-        <div class="mt-4 flex flex-wrap gap-4 text-sm">
-          <div class="flex items-center">
-            <div class="w-4 h-4 bg-blue-500 rounded mr-2"></div>
-            <span>Program Cutoffs</span>
-          </div>
-          <div class="flex items-center">
-            <div class="w-4 h-4 bg-green-500 rounded mr-2"></div>
-            <span>Your Z-Score</span>
-          </div>
-          <div class="flex items-center">
-            <div class="w-4 h-4 bg-red-500 rounded mr-2"></div>
-            <span>Safety Margin</span>
+          <!-- Legend -->
+          <div class="mt-3 sm:mt-4 flex flex-wrap gap-2 sm:gap-4 text-xs sm:text-sm">
+            <div class="flex items-center">
+              <div class="w-3 h-3 sm:w-4 sm:h-4 bg-blue-500 rounded mr-1 sm:mr-2"></div>
+              <span>Program Cutoffs</span>
+            </div>
+            <div class="flex items-center">
+              <div class="w-3 h-3 sm:w-4 sm:h-4 bg-green-500 rounded mr-1 sm:mr-2"></div>
+              <span>Your Z-Score</span>
+            </div>
+            <div class="flex items-center">
+              <div class="w-3 h-3 sm:w-4 sm:h-4 bg-red-500 rounded mr-1 sm:mr-2"></div>
+              <span>Safety Margin</span>
+            </div>
           </div>
         </div>
       </div>
 
-
       <!-- Performance Insights -->
-      <div class="mt-8 bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg p-6">
-        <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
-          <span class="text-2xl mr-2">💡</span>
+      <div class="mt-6 sm:mt-8 bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg p-4 sm:p-6">
+        <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-3 sm:mb-4 flex items-center">
+          <span class="text-xl sm:text-2xl mr-2">💡</span>
           Performance Insights
         </h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div class="bg-white rounded-lg p-4 shadow-sm">
-            <h4 class="font-semibold text-gray-700 mb-2">Competitiveness Level</h4>
-            <div class="text-lg font-bold" [ngClass]="getCompetitivenessColor()">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+          <div class="bg-white rounded-lg p-3 sm:p-4 shadow-sm">
+            <h4 class="font-semibold text-gray-700 mb-2 text-sm sm:text-base">Competitiveness Level</h4>
+            <div class="text-base sm:text-lg font-bold" [ngClass]="getCompetitivenessColor()">
               {{ getCompetitivenessLevel() }}
             </div>
-            <p class="text-sm text-gray-600 mt-1">{{ getCompetitivenessDescription() }}</p>
+            <p class="text-xs sm:text-sm text-gray-600 mt-1 leading-tight">{{ getCompetitivenessDescription() }}</p>
           </div>
           
-          <div class="bg-white rounded-lg p-4 shadow-sm">
-            <h4 class="font-semibold text-gray-700 mb-2">Recommendation</h4>
-            <div class="text-sm text-gray-700">
+          <div class="bg-white rounded-lg p-3 sm:p-4 shadow-sm">
+            <h4 class="font-semibold text-gray-700 mb-2 text-sm sm:text-base">Recommendation</h4>
+            <div class="text-xs sm:text-sm text-gray-700 leading-tight">
               {{ getRecommendationText() }}
             </div>
           </div>
           
-          <div class="bg-white rounded-lg p-4 shadow-sm">
-            <h4 class="font-semibold text-gray-700 mb-2">Success Probability</h4>
-            <div class="text-lg font-bold text-green-600">{{ getSuccessProbability() }}%</div>
+          <div class="bg-white rounded-lg p-3 sm:p-4 shadow-sm sm:col-span-2 lg:col-span-1">
+            <h4 class="font-semibold text-gray-700 mb-2 text-sm sm:text-base">Success Probability</h4>
+            <div class="text-base sm:text-lg font-bold text-green-600">{{ getSuccessProbability() }}%</div>
             <div class="mt-2 bg-gray-200 rounded-full h-2">
               <div class="bg-green-500 h-2 rounded-full transition-all duration-500" 
                    [style.width.%]="getSuccessProbability()"></div>
@@ -252,20 +254,23 @@ export class StatisticsComponent implements OnChanges {
       data: data,
       options: {
         responsive: true,
-        maintainAspectRatio: false,
+        maintainAspectRatio: true,
         plugins: {
           legend: {
             position: 'top',
             labels: {
               usePointStyle: true,
-              padding: 20
+              padding: 15,
+              font: {
+                size: window.innerWidth < 640 ? 10 : 12
+              }
             }
           },
           title: {
             display: true,
             text: 'Z-Score Analysis: Your Performance vs Program Requirements',
             font: {
-              size: 16,
+              size: window.innerWidth < 640 ? 12 : 16,
               weight: 'bold'
             }
           },
@@ -288,7 +293,7 @@ export class StatisticsComponent implements OnChanges {
               display: true,
               text: 'Z-Score',
               font: {
-                size: 14,
+                size: window.innerWidth < 640 ? 10 : 14,
                 weight: 'bold'
               }
             },
@@ -301,12 +306,12 @@ export class StatisticsComponent implements OnChanges {
               display: true,
               text: 'Degree Programs',
               font: {
-                size: 14,
+                size: window.innerWidth < 640 ? 10 : 14,
                 weight: 'bold'
               }
             },
             ticks: {
-              maxRotation: 45,
+              maxRotation: window.innerWidth < 640 ? 90 : 45,
               minRotation: 0
             }
           }
